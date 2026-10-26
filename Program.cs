@@ -97,12 +97,131 @@ using System.Text.Json;
 // }
 
 // Final task
-GameSettings settings = new()
+// GameSettings settings = new()
+// {
+//     PlayerName = "kqueej",
+//     Volume = 70,
+//     FullScreen = false,
+//     Difficulty = Difficulty.Lunatic
+// };
+
+// JsonSerializerOptions options = new()
+// {
+//     WriteIndented = true
+// };
+
+// string settingsJson = JsonSerializer.Serialize(settings, options);
+// File.WriteAllText("settings.json", settingsJson);
+
+// Console.WriteLine("Settings saved to settings.json");
+// Console.WriteLine("\nLoading settings...");
+
+// if (File.Exists("settings.json"))
+// {
+//     string loadedSettingsJson = File.ReadAllText("settings.json");
+//     GameSettings? loadedSettings =
+//         JsonSerializer.Deserialize<GameSettings>(loadedSettingsJson);
+
+//     if (loadedSettings != null)
+//     {
+//         Console.WriteLine($"Player: {loadedSettings.PlayerName}");
+//         Console.WriteLine($"Volume: {loadedSettings.Volume}");
+//         Console.WriteLine($"Fullscreen: {(loadedSettings.FullScreen ? "Yes" : "No")}");
+//         Console.WriteLine($"Difficulty: {loadedSettings.Difficulty}");
+//     }
+// }
+// else
+// {
+//     Console.WriteLine("Settings file not found.");
+// }
+
+// // Class of final task
+// class GameSettings
+// {
+//     public string PlayerName { get; set; } = "";
+//     public int Volume { get; set; }
+//     public bool FullScreen { get; set; }
+//     public Difficulty Difficulty { get; set; }
+// }
+
+// enum Difficulty
+// {
+//     Easy,
+//     Normal,
+//     Hard,
+//     Lunatic
+// }
+
+// Self 1
+// Game game = new()
+// {
+//     Title = "Warhammer 40,000: Dawn of War — Dark Crusade",
+//     Company = "THQ",
+//     Year = 2006
+// };
+
+// JsonSerializerOptions options = new()
+// {
+//     WriteIndented = true
+// };
+// string gameJson = JsonSerializer.Serialize(game, options);
+// Console.WriteLine(gameJson);
+
+// Game? restoredGame = JsonSerializer.Deserialize<Game>(gameJson);
+
+// if (restoredGame != null)
+// {
+//     Console.WriteLine($"{restoredGame.Title}, {restoredGame.Company}, {restoredGame.Year}");
+// }
+// class Game
+// {
+//     public string Title { get; set; } = "";
+//     public string Company { get; set; } = "";
+//     public int Year { get; set; }
+// }
+
+// Self 2
+// List<Game> games =
+// [
+//     new Game { Title = "Warhammer 40k: Dawn of War — Dark Crusade", Company = "THQ", Year = 2006 },
+//     new Game { Title = "Fallout 2", Company = "Black Isle Studios", Year = 1998 },
+//     new Game { Title = "System Shock", Company = "Looking Glass Studios", Year = 1994 }
+// ];
+
+// JsonSerializerOptions options = new()
+// {
+//     WriteIndented = true
+// };
+
+// File.WriteAllText("games.json", JsonSerializer.Serialize(games, options));
+
+// List<Game>? loadedGames =
+//     JsonSerializer.Deserialize<List<Game>>(File.ReadAllText("games.json"));
+
+// if (loadedGames != null)
+// {
+//     Console.WriteLine($"Games count: {loadedGames.Count}");
+//     Console.WriteLine($"First game: {loadedGames[0].Title}");
+//     Console.WriteLine($"Company of second game: {loadedGames[1].Company}");
+// }
+
+// class Game
+// {
+//     public string Title { get; set; } = "";
+//     public string Company { get; set; } = "";
+//     public int Year { get; set; }
+// }
+
+// Self 3
+Inventory inventory = new()
 {
-    PlayerName = "kqueej",
-    Volume = 70,
-    FullScreen = false,
-    Difficulty = Difficulty.Lunatic
+    Items = new List<string> { "Sword", "Shield", "Potion" },
+    Quantities = new Dictionary<string, int>
+    {
+        ["Sword"] = 1,
+        ["Shield"] = 1,
+        ["Potion"] = 5
+    }
 };
 
 JsonSerializerOptions options = new()
@@ -110,44 +229,20 @@ JsonSerializerOptions options = new()
     WriteIndented = true
 };
 
-string settingsJson = JsonSerializer.Serialize(settings, options);
-File.WriteAllText("settings.json", settingsJson);
+File.WriteAllText("inventory.json", JsonSerializer.Serialize(inventory, options));
 
-Console.WriteLine("Settings saved to settings.json");
-Console.WriteLine("\nLoading settings...");
+Inventory? loadedInventory =
+    JsonSerializer.Deserialize<Inventory>(File.ReadAllText("inventory.json"));
 
-if (File.Exists("settings.json"))
+if (loadedInventory != null)
 {
-    string loadedSettingsJson = File.ReadAllText("settings.json");
-    GameSettings? loadedSettings =
-        JsonSerializer.Deserialize<GameSettings>(loadedSettingsJson);
-
-    if (loadedSettings != null)
-    {
-        Console.WriteLine($"Player: {loadedSettings.PlayerName}");
-        Console.WriteLine($"Volume: {loadedSettings.Volume}");
-        Console.WriteLine($"Fullscreen: {(loadedSettings.FullScreen ? "Yes" : "No")}");
-        Console.WriteLine($"Difficulty: {loadedSettings.Difficulty}");
-    }
+    Console.WriteLine($"Number of items: {loadedInventory.Items.Count}");
+    Console.WriteLine($"Number of potions: {loadedInventory.Quantities["Potion"]}");
 }
-else
+class Inventory
 {
-    Console.WriteLine("Settings file not found.");
+    public List<string> Items { get; set; } = [];
+    public Dictionary<string, int> Quantities { get; set; } = [];
 }
 
-// Class of final task
-class GameSettings
-{
-    public string PlayerName { get; set; } = "";
-    public int Volume { get; set; }
-    public bool FullScreen { get; set; }
-    public Difficulty Difficulty { get; set; }
-}
-
-enum Difficulty
-{
-    Easy,
-    Normal,
-    Hard,
-    Lunatic
-}
+// Класс инвентаря содержит обе коллекции вместе, поэтому можно сериализовать одним объектом
