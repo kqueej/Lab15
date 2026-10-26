@@ -96,3 +96,58 @@ using System.Text.Json;
 //     public int Level { get; set; }
 // }
 
+// Final task
+GameSettings settings = new()
+{
+    PlayerName = "kqueej",
+    Volume = 70,
+    FullScreen = false,
+    Difficulty = Difficulty.Lunatic
+};
+
+JsonSerializerOptions options = new()
+{
+    WriteIndented = true
+};
+
+string settingsJson = JsonSerializer.Serialize(settings, options);
+File.WriteAllText("settings.json", settingsJson);
+
+Console.WriteLine("Settings saved to settings.json");
+Console.WriteLine("\nLoading settings...");
+
+if (File.Exists("settings.json"))
+{
+    string loadedSettingsJson = File.ReadAllText("settings.json");
+    GameSettings? loadedSettings =
+        JsonSerializer.Deserialize<GameSettings>(loadedSettingsJson);
+
+    if (loadedSettings != null)
+    {
+        Console.WriteLine($"Player: {loadedSettings.PlayerName}");
+        Console.WriteLine($"Volume: {loadedSettings.Volume}");
+        Console.WriteLine($"Fullscreen: {(loadedSettings.FullScreen ? "Yes" : "No")}");
+        Console.WriteLine($"Difficulty: {loadedSettings.Difficulty}");
+    }
+}
+else
+{
+    Console.WriteLine("Settings file not found.");
+}
+
+// Class of final task
+class GameSettings
+{
+    public string PlayerName { get; set; } = "";
+    public int Volume { get; set; }
+    public bool FullScreen { get; set; }
+    public Difficulty Difficulty { get; set; }
+}
+
+enum Difficulty
+{
+    Easy,
+    Normal,
+    Hard,
+    Lunatic
+}
